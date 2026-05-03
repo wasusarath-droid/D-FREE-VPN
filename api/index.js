@@ -1,12 +1,20 @@
 export default function handler(req, res) {
   try {
-    return res.status(200).json({
+    // Basic debug log (Vercel logs වල පේනවා)
+    console.log("Function triggered");
+
+    // Safe response
+    res.status(200).json({
       status: "OK",
-      message: "API running successfully 🚀"
+      message: "Server is working 🚀"
     });
-  } catch (err) {
-    return res.status(500).json({
-      error: err.message
+
+  } catch (error) {
+    console.error("ERROR:", error);
+
+    res.status(500).json({
+      error: "Internal Server Error",
+      details: error.message
     });
   }
 }
