@@ -1,12 +1,8 @@
 {
   "name": "zentrycloud-backend",
   "version": "1.0.0",
-  "description": "ZentryCloud VPN Config Generator API",
   "type": "module",
   "scripts": {
-    "start": "node api/index.js"
-  },
-  "engines": {
-    "node": "24.x"
+    "build": "echo build done"
   }
 }
