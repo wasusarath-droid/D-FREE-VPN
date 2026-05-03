@@ -1,11 +1,12 @@
 {
-  "name": "zentrycloud-backend",
+  "name": "D FREE VPN-backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "D FREE VPN API",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node api/index.js"
   },
-  "dependencies": {
-    "express": "^4.18.2"
+  "engines": {
+    "node": "18.x"
   }
 }
