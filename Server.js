@@ -1,15 +1,15 @@
 export default async function handler(req, res) {
-  // CORS headers
+  // CORS headers - mobile app එකට allow කරන්න
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
-  // OPTIONS request handle කරන්න
+  // OPTIONS request (pre-flight) handle කරන්න
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
   
-  // GET request - API status
+  // GET request - API status check කරන්න
   if (req.method === 'GET') {
     return res.status(200).json({ 
       message: 'ZentryCloud API is running ✅',
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   
   // POST request පමණක් accept කරන්න
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed. Use POST.' });
+    return res.status(405).json({ error: 'Method not allowed. Please use POST.' });
   }
   
   try {
@@ -50,12 +50,13 @@ ${sni ? `🔧 Custom SNI: ${sni}` : ''}
 📅 Generated: ${timestamp}
 ==============================`;
     
-    res.status(200).json({ 
+    return res.status(200).json({ 
       success: true,
       config: config 
     });
     
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error: ' + error.message });
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'Internal server error: ' + error.message });
   }
 }
