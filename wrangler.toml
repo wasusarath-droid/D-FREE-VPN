@@ -1,0 +1,7 @@
+name = "my-project-name"
+main = "index.js"
+compatibility_date = "2024-05-04"
+
+[site]
+bucket = "./public" # මෙතන තමයි ඔයාගේ HTML/CSS files තියෙන්න ඕනි folder එක
+entry-point = "workers-site"
