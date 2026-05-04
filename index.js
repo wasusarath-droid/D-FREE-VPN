@@ -2,28 +2,23 @@ import express from 'express';
 
 const app = express();
 
-/** * Define your routes here
- * Example:
- */
+// Your API Routes
 app.get('/', (req, res) => {
-  res.send('Server is running on Cloudflare Workers!');
+  res.send('Server is working perfectly!');
 });
 
-/**
- * MANDATORY: Cloudflare Module Worker Export
- * This connects the incoming request to your Express logic 
- * or serves your static assets.
- */
+// IMPORTANT: The Cloudflare Handler
 export default {
   async fetch(request, env, ctx) {
-    // If you are only serving static files from the 'public' folder:
-    return await env.ASSETS.fetch(request);
+    // This allows Cloudflare to handle the request 
+    // and serve static assets if needed.
+    if (env.ASSETS) {
+        return await env.ASSETS.fetch(request);
+    }
     
-    /**
-     * NOTE: If you need to run full Express logic, 
-     * Cloudflare requires a specific adapter like 'hono' or 
-     * '@codegen-it/adapter-cloudflare-workers' because Express 
-     * was built for Node.js, not the V8 Edge Runtime.
-     */
+    // For a full Express API on Cloudflare, 
+    // it's recommended to use a framework like Hono 
+    // or a dedicated adapter.
+    return new Response("Hello from Cloudflare Worker!");
   }
 };
