@@ -1,6 +1,6 @@
 name = "dfreevpnn"
 main = "index.js"
-compatibility_date = "2024-05-04"
+compatibility_date = "2024-09-23" # මෙම දිනය අනිවාර්යයෙන්ම මෙසේ වෙනස් කරන්න
 compatibility_flags = [ "nodejs_compat" ]
 
 [assets]
