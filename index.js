@@ -1,21 +1,20 @@
-import express from 'express';
-
-const app = express();
-
-// Sample Route
-app.get('/api', (req, res) => {
-  res.json({ message: "VPN API is working!" });
-});
-
 export default {
   async fetch(request, env, ctx) {
-    // මෙය ඉතා වැදගත්: Static assets (HTML/CSS) පෙන්වීමට මෙය අවශ්‍යයි
+    const url = new URL(request.url);
+
+    // 1. ඔබේ API එක මෙතැනින් ලියන්න (Express App එකක් වෙනුවට)
+    if (url.pathname === "/api") {
+      return new Response(JSON.stringify({ message: "VPN API is working!" }), {
+        headers: { "content-type": "application/json" }
+      });
+    }
+
+    // 2. Static Assets (HTML/CSS) පෙන්වීමට:
     if (env.ASSETS) {
       const response = await env.ASSETS.fetch(request);
       if (response.status !== 404) return response;
     }
 
-    // වෙනත් API requests තිබේ නම් මෙතැනින් හැඬල් කළ හැක
-    return new Response("Hello from Cloudflare Worker!");
+    return new Response("Not Found", { status: 404 });
   }
 };
