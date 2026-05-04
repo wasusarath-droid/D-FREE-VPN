@@ -1,2 +1,8 @@
+name = "dfreevpnn"
+main = "index.js"
 compatibility_date = "2024-09-23"
 compatibility_flags = [ "nodejs_compat" ]
+
+[assets]
+directory = "./public" # ඔබේ static ෆයිල්ස් (html, css) තියෙන ෆෝල්ඩරයේ නම
+binding = "ASSETS"
