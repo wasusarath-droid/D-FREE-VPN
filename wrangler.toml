@@ -1,6 +1,7 @@
-name = "my-project-name"
+name = "dfreevpnn"
 main = "index.js"
 compatibility_date = "2024-05-04"
+compatibility_flags = [ "nodejs_compat" ]
 
 [assets]
 directory = "./public"
