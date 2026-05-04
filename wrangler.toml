@@ -1,8 +1,20 @@
-name = "dfreevpnn"
-main = "index.js"
-compatibility_date = "2024-09-23" # මෙම දිනය අනිවාර්යයෙන්ම මෙසේ වෙනස් කරන්න
-compatibility_flags = [ "nodejs_compat" ]
+import express from 'express';
 
-[assets]
-directory = "./public"
-binding = "ASSETS"
+const app = express();
+
+// ඔබේ අනෙකුත් සියලුම Routes මෙතැනින් පසුව ලියන්න
+app.get('/', (req, res) => {
+  res.send('VPN API is Running!');
+});
+
+// වැදගත්ම කොටස: Cloudflare සඳහා Export එකක් එක් කිරීම
+export default {
+  async fetch(request, env, ctx) {
+    // මෙය Express සහ Cloudflare සම්බන්ධ කරන පාලමයි
+    // සාමාන්‍යයෙන් Cloudflare වල Express කෙලින්ම run වෙන්නේ නැත
+    // ඒ සඳහා '@chaos-97/cloudflare-express' වැනි adapter එකක් අවශ්‍ය විය හැක
+    // නමුත් සරලවම Static assets පෙන්වීමට නම් පහත දේ කරන්න:
+    
+    return await env.ASSETS.fetch(request);
+  }
+};
