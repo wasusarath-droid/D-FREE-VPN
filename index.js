@@ -2,23 +2,20 @@ import express from 'express';
 
 const app = express();
 
-// Your API Routes
-app.get('/', (req, res) => {
-  res.send('Server is working perfectly!');
+// Sample Route
+app.get('/api', (req, res) => {
+  res.json({ message: "VPN API is working!" });
 });
 
-// IMPORTANT: The Cloudflare Handler
 export default {
   async fetch(request, env, ctx) {
-    // This allows Cloudflare to handle the request 
-    // and serve static assets if needed.
+    // මෙය ඉතා වැදගත්: Static assets (HTML/CSS) පෙන්වීමට මෙය අවශ්‍යයි
     if (env.ASSETS) {
-        return await env.ASSETS.fetch(request);
+      const response = await env.ASSETS.fetch(request);
+      if (response.status !== 404) return response;
     }
-    
-    // For a full Express API on Cloudflare, 
-    // it's recommended to use a framework like Hono 
-    // or a dedicated adapter.
+
+    // වෙනත් API requests තිබේ නම් මෙතැනින් හැඬල් කළ හැක
     return new Response("Hello from Cloudflare Worker!");
   }
 };
